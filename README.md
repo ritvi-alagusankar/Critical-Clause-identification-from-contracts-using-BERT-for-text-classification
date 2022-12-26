@@ -15,7 +15,7 @@ These images of each page of the PDF file are then converted to text using the i
 
 ```def convert_img_to_text(file):
     text = image_to_string(file) 
-    return text```
+    return text ```
     
 The text is then stored in a string that contains the entire text of the PDF file. The text from the PDF file is then split into sentences using the split() function. We obtain a list of all the sentences in the file.
 
