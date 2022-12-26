@@ -52,28 +52,29 @@ We are going to be using BERT for binary text classification. We will be able to
 
 We use small_bert/bert_en_uncased_L-4_H-256_A-4 model for our binary text classification problem. It implements the encoder API for text embeddings with transformer encoders. We use the bert_en_uncased_preprocess Saved Model to preprocess plain text inputs into the input format expected by BERT. This model uses a vocabulary for English extracted from the Wikipedia and BooksCorpus (same as in the models by the original BERT authors). Text inputs are normalized the “uncased” way, meaning that the text has been lower-cased before tokenization into word pieces, and any accent markers are stripped.
 
-'''
+```
 text_input = tf.keras.layers.Input(shape=(), dtype=tf.string)
 preprocessor = hub.KerasLayer(path_uncased_preprocess)
 encoder_inputs = preprocessor(text_input)
 encoder = hub.KerasLayer(path_bertmodel, trainable=True)
 outputs = encoder(encoder_inputs)
-'''
+```
 
 We have two layers of neural networks in our model. The Dropout layer is used to ignore 10% of the neurons. The Dense layer acts as the classifier in the model. The sigmoid function is used as an activation function as we require a value between 0 and 1.
 
-'''
+```
 l = tf.keras.layers.Dropout(0.1, name="dropout")(outputs['pooled_output'])
 l = tf.keras.layers.Dense(1, activation='sigmoid', name="output")(l)
 model = tf.keras.Model(inputs=[text_input], outputs = [l])
 METRICS = [ tf.keras.metrics.BinaryAccuracy(name='accuracy'), tf.keras.metrics.Precision(name='precision'), tf.keras.metrics.Recall(name='recall')]
 model.compile(optimizer='adam', loss='binary_crossentropy', metrics=METRICS)
-'''
+```
 
 ### Training the model
 The model is then created and trained using the training data of the dataset. First we take 75% of the dataset as training data which is fit into the model as follows:
 
-model.fit(X_train, y_train, epochs=5)
+``model.fit(X_train, y_train, epochs=5)``
+
 The training data is passed forward and backward through the neural network 5 times.
 
 ### Evaluating the model
