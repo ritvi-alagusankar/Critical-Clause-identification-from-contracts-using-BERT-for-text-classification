@@ -79,3 +79,9 @@ The training data is passed forward and backward through the neural network 5 ti
 
 ### Evaluating the model
 Once the model is trained we evaluate the results on the remaining 25% of the dataset kept for testing. When 75% of the dataset is used as training data the accuracy metrics on the remaining 25% test data are as follows:
+
+![image](https://user-images.githubusercontent.com/114499776/209507698-8ff9f143-911f-4e1e-ad05-98844d646e33.png)
+
+Despite the lack of data in the dataset, this model performs fairly accurately on unseen test data. This model can be further improved by enhancing the dataset with more clauses from legal contracts.
+
+
