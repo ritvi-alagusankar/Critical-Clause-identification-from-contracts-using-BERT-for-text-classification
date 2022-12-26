@@ -27,3 +27,17 @@ The text is then stored in a string that contains the entire text of the PDF fil
 ``sentence = re.split("\\. |\\.\n|\\.\n\n|\\:\n|\\: \n|\\:\n\n",text_from_pytesseract)``
 
 These sentences are filtered removing the unnecessary parts of the PDF file. The sentences are then finally written into a CSV file. We get a CSV file containing all the clauses of the contract.
+
+# Data Labelling/Annotation
+
+The CSV files from all the contracts are then combined into one CSV file. This file consists of sentences(clauses) from all the contracts. This file is further filtered and we then proceed to the classification process. The various clauses are manually classified as critical or non-critical depending on their contents. Since the number of critical clauses is much less compared to the number of non-critical clauses in contracts, naturally there is an imbalance in the dataset. This problem is solved by adding several critical clauses from various legal contracts available on Kaggle.
+
+![image](https://user-images.githubusercontent.com/114499776/209507325-07ff0991-4190-426b-afa9-fdc2f82c1d50.png)
+
+Total number of clauses in dataset: 1216
+
+Critical Clauses: 644
+
+Non-critical Clauses: 572
+
+The CSV file is then read and stored as a data frame using pandas. All the critical clauses are mapped as 1 and the non-critical clauses are mapped as 0.
